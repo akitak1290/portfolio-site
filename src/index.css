@@ -1,0 +1,291 @@
+:root {
+    font-family: "Montserrat", sans-serif;
+
+    --background: white;
+    --text-primary: black;
+
+    --text-tn: 12px;
+    --text-sm: 14px;
+    --text-md: 16px;
+    --text-lg: 18px;
+    --text-2lg: 20px;
+    --text-3lg: 24px;
+
+    background-color: var(--background);
+    color: var(--text-primary);
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+}
+
+[data-them="dark"] {
+    --background: black;
+    --text-primary: white;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    padding: 20px 30px;
+    box-sizing: border-box;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    row-gap: 40px;
+    height: 100%;
+}
+
+a {
+    text-decoration: inherit;
+    color: #58a6ff;
+}
+
+a:hover {
+    color: #535bf2;
+}
+
+ul,
+ol {
+    margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    margin: 0;
+}
+
+p {
+    font-size: var(--text-sm);
+    margin: 0;
+}
+
+button,
+input[type="submit"],
+input[type="reset"] {
+    background: none;
+    background-color: transparent;
+    border: none;
+    padding: none;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: inline;
+    /* default */
+}
+
+.nav-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .logo {
+        font-size: var(--text-3lg);
+        font-weight: 300;
+        color: var(--text-primary);
+    }
+
+    .nav-bar-sections {
+        display: none;
+    }
+
+    .burger-menu {
+        width: 44px;
+        height: 44px;
+        text-align: right;
+        padding-right: 0;
+        z-index: 999;
+    }
+
+    .burger-nav-bar {
+        position: absolute;
+        background-color: var(--background);
+        width: 100vw;
+        height: 100vh;
+        left: 0;
+        top: 0;
+    }
+
+    .burger-nav-bar-sections {
+        height: inherit;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        /* this is kinda hacky, TODO: fix */
+        >ul {
+            font-size: var(--text-3lg);
+            padding: 0;
+            margin: 40px 0;
+        }
+
+    }
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+
+    .profile {
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+
+        .resume {
+            display: flex;
+
+            svg {
+                margin-right: 10px;
+            }
+        }
+    }
+
+    .experience {
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+    }
+
+    .projects {
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+    }
+
+    .blog {
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+
+        .blog-post {
+            >p:first-child {
+                color: #828282;
+                margin-bottom: 5px;
+            }
+
+            a {
+                font-weight: 500;
+            }
+        }
+    }
+
+    .contact {
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+
+        .email {
+            text-decoration: underline;
+
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .socials {
+            display: flex;
+            flex-direction: column;
+            row-gap: 10px;
+
+
+            a>*:first-child {
+                vertical-align: middle;
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+.github-card {
+    border: solid 1px var(--text-primary);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 14px 16px;
+    row-gap: 14px;
+    max-width: 300px;
+
+    p {
+        font-size: var(--text-tn);
+        font-weight: 300;
+    }
+
+    .github-card-title {
+        display: flex;
+        align-items: center;
+        column-gap: 10px;
+    }
+
+    .github-card-name {
+        font-size: var(--text-md);
+    }
+
+    .github-card-tag {
+        border: solid 1px var(--text-primary);
+        border-radius: 25px;
+        box-sizing: border-box;
+        padding: 2px 7px;
+        font-weight: 300;
+    }
+
+    .github-card-details {
+        display: flex;
+        column-gap: 6px;
+
+        span {
+            display: inline-block;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 25px;
+            background-color: #3178C6;
+            min-width: 11px;
+            min-height: 11px;
+        }
+    }
+}
+
+.preview-card {
+    /* border-radius: 15px; */
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+
+    .image-container>img {
+        width: 100%;
+        height: 100%;
+        border-radius: 15px 15px 0 0;
+        object-fit: cover;
+    }
+
+    .preview-card-title {
+        font-weight: 700;
+    }
+
+    a {
+        font-weight: 700;
+    }
+}
+
+.footer {
+    font-size: var(--text-tn);
+    text-align: center;
+    font-weight: 500;
+}
