@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import PlaceHolderImage from "../assets/fstt_next_gen.png";
+import { truncateText } from "../_util";
 
 interface PropType {
     imagePath: string,
@@ -11,9 +12,6 @@ interface PropType {
 // for safeguard
 const DESC_LIMIT = 120;
 
-function truncateText(str: string) {
-    return str.length > DESC_LIMIT ? str.substring(0, DESC_LIMIT-3) + '...' : str;
-}
 
 function PreviewCard(prop: PropType) {
     const { imagePath, title, description, articleLink } = prop;
@@ -23,9 +21,9 @@ function PreviewCard(prop: PropType) {
             <div className="image-container">
                 <img src={PlaceHolderImage} alt={`${title} image`} />
             </div>
-            <h3 className="preview-card-title">{truncateText(title)}</h3>
-            <p className="preview-card-desc">{truncateText(description)}</p>
-            <Link to={articleLink}>View project</Link>
+            <h3 className="preview-card-title">{truncateText(title, DESC_LIMIT)}</h3>
+            <p className="preview-card-desc">{truncateText(description, DESC_LIMIT)}</p>
+            <span><Link to={articleLink}>View project</Link></span>
         </div>
     );
 }
