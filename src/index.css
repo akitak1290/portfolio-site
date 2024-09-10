@@ -2,7 +2,7 @@
     font-family: "Montserrat", sans-serif;
 
     --background: white;
-    --text-primary: black;
+    --text-primary: #181A1B;
 
     --text-tn: 12px;
     --text-sm: 14px;
@@ -20,6 +20,15 @@
     -moz-osx-font-smoothing: grayscale;
 
     scroll-behavior: smooth;
+}
+
+html {
+    -ms-overflow-style: none;/* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+}
+
+html::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
 }
 
 svg {
@@ -47,7 +56,7 @@ svg.only-stroke {
 }
 
 body {
-    margin: 20px 30px;
+    margin: 0 30px;
 }
 
 #root {
@@ -120,11 +129,11 @@ input[type="reset"] {
     padding: none;
 }
 
-.hide {
+.hide-mobile {
     display: none;
 }
 
-.show {
+.display-mobile {
     display: inline;
     /* default */
 }
@@ -239,8 +248,8 @@ input[type="reset"] {
         display: flex;
         flex-direction: column;
         row-gap: 50px;
-        column-gap: 50px;
         justify-content: center;
+        column-gap: 50px;
 
         .projects-cards-container {
             display: flex;
@@ -503,19 +512,17 @@ input[type="reset"] {
         padding: 0 100px;
         row-gap: 0px;
 
-        >* {
-            scroll-snap-align: center;
+        .section {
+            scroll-snap-align: start;
             height: 100vh;
         }
 
         .profile {
             align-items: center;
-            padding: 0 15%;
+            padding: 0 10%;
             column-gap: 35px;
-            flex-direction: row;
 
             .avatar {
-                /* min-width: 30%; */
                 max-height: 330px;
             }
         }
@@ -556,6 +563,10 @@ input[type="reset"] {
 
     .side-nav-control {
         display: block;
+    }
+
+    .display-mobile {
+        display: none;
     }
 }
 

@@ -1,4 +1,4 @@
-import { truncateText } from "../_util";
+import { truncateText } from "./_util";
 
 interface PropType {
     repoName: string,

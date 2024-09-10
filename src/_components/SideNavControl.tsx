@@ -6,12 +6,12 @@ interface PropType {
     isVisibleIndex: number
 }
 
+// isVisibleIndex value doesn't have constrains
+// this function only cares if it matches values from 0 to anchors.length exclusively
 function SideNavControl({isVisibleIndex}: PropType) {
-    console.log(isVisibleIndex)
     const [activeLink, setActiveLink] = useState(0);
 
     // https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
-    // console.log(isVisibleIndex, activeLink)
     // this feels hacky, TODO: refactor this and check test for rerenders
     let calActiveLink: number;
     if (isVisibleIndex !== activeLink){
