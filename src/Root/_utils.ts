@@ -1,3 +1,3 @@
 export interface SectionPropType {
-    nodeRef: React.MutableRefObject<null>
+    nodeRef?: React.MutableRefObject<null>
 }

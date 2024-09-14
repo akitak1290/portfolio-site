@@ -8,6 +8,7 @@ import BlogPost from './BlogPost/index.tsx';
 import NavBar from './_components/NavBar.tsx';
 import Footer from './_components/Footer.tsx';
 import Root from './Root/index.tsx';
+import Error from './_components/Error.tsx';
 
 const router = createBrowserRouter([
     {
@@ -17,15 +18,23 @@ const router = createBrowserRouter([
                 <Outlet />
                 <Footer />
             </>,
-        errorElement: null,
+        errorElement: <Error />,
         children: [
             {
                 path: "/",
-                element: <Root />
+                element: <Root />,
             },
             {
-                path: "/blogPost",
-                element: <BlogPost />
+                path: "/blog/:name",
+                element: <BlogPost section="blog" />,
+            },
+            {
+                path: "experience/:name",
+                element: <BlogPost section="experience" />,
+            },
+            {
+                path: "*",
+                element: <Error status={404}/>,
             }
         ]
     },
