@@ -12,36 +12,46 @@ A web-based application for the new fstt system, led by Seneca research team.
 
 ### About the project
 
-Lorem ipsum odor amet, consectetuer adipiscing elit. Parturient purus donec dictumst vitae massa eget odio fusce. Pellentesque sociosqu congue taciti tincidunt commodo tempor dui.
+At my previous position, I was primarily responsible for the continuation of an ongoing project by adding new features and addressing bugs. There are weekly status meeting (and rarely, onsite) with the client to provide updates on my progress and discuss any new requirements. I mainly worked with React, Redux, WebSocket, Git, and NodeJS, with data stored locally on the file system.
 
-Justo lorem leo amet donec at ornare eget. Adipiscing leo eleifend torquent ex tortor rutrum iaculis ornare. Facilisi mi orci facilisis; morbi quis scelerisque sagittis nunc. Nisl parturient volutpat fringilla ultrices fringilla etiam habitasse accumsan. Et eu pellentesque fames fermentum posuere varius rhoncus sagittis orci.
+In addition to the client’s task list, I was assigned with development of a proof of concept for a mobile version of the application. After thorough discussions with my manager, I chose to implement this using Progressive Web App technology to create a seamless and efficient mobile experience while leveraging the existing codebase.
+
+Here is an example of the tasks I completed, a performance issue with the charting library.
 
 ### The work
 
+One of the main UI components is a line chart that draws live data received from a sensor, hooked to the NodeJS server. A working session spans from 5 seconds to 1 minute. Sample rate is capped at 200 per second, chopped into 20 chunks sent in interval of 50ms to reduce client load.
+
 ![how it should works](./demo.png)
 
-Justo lorem leo amet donec at ornare eget. Adipiscing leo eleifend torquent ex tortor rutrum iaculis ornare. Facilisi mi orci facilisis; morbi quis scelerisque sagittis nunc. Nisl parturient volutpat fringilla ultrices fringilla etiam habitasse accumsan. Et eu pellentesque fames fermentum posuere varius rhoncus sagittis orci.
+For lower durations, the graph performed as expected. For longer sessions (threshold vary with different devices), the graph would shown weird visual anomalies that didn’t reflect actual data.
 
 ![the first problem](./problem_1.png)
 
-Lorem ipsum odor amet, consectetuer adipiscing elit. Parturient purus donec dictumst vitae massa eget odio fusce. Pellentesque sociosqu congue taciti tincidunt commodo tempor dui.
+The assumption was either the graph took too long to render due to misuse or due to its implementation (way less likely) or some processing logic took too long. A look at the profiling tool shows that the chart component took 4.8ms to render on average.
 
-![comparing chart library](./chartjs_vs_apexchart.png)
+![profiling tool](./profiling_tool.png)
+
+With 20 chunks a second, that left the available time of 50ms each frame, so some processing logic was eating up most of the resource and somehow causes the incoming data to be corrupted. But those logics can’t be changed, the next best thing was changing the chart library.
+
+Swapping in another chart library causes another UI problem, inconsistent with the original problem.
+
+![comparing charts](./comparing_charts.png)
+
+Welp.
 
 ### The solution
 
+While troubleshooting, I wrote a tiny custom [tracer code](https://wiki.c2.com/?TracerBullets) to replace the current graph library using HTML Canvas for testing. Turns out, that solved the problem, even for the maximum duration sessions.
+
 ![a custom chart using canvas element](./custom_solve.png)
 
-Lorem ipsum odor amet, consectetuer adipiscing elit. Parturient purus donec dictumst vitae massa eget odio fusce. Pellentesque sociosqu congue taciti tincidunt commodo tempor dui.
+Great! But the new component did not have all the bells and whistles like tooltips, responsiveness, interactions that end-users wanted to see after a session is over. So, the path forward was to use the new graph for live session and swap out to the old graph after the session is done.
 
-Justo lorem leo amet donec at ornare eget. Adipiscing leo eleifend torquent ex tortor rutrum iaculis ornare. Facilisi mi orci facilisis; morbi quis scelerisque sagittis nunc. Nisl parturient volutpat fringilla ultrices fringilla etiam habitasse accumsan. Et eu pellentesque fames fermentum posuere varius rhoncus sagittis orci.
-
-Lorem ipsum odor amet, consectetuer adipiscing elit. Parturient purus donec dictumst vitae massa eget odio fusce. Pellentesque sociosqu congue taciti tincidunt commodo tempor dui.
+This worked because the server always store the complete data for the graph and rendering the whole graph at once did not cause the same problem.
 
 ![another small bug](./problem_2.png)
 
-Lorem ipsum odor amet, consectetuer adipiscing elit. Parturient purus donec dictumst vitae massa eget odio fusce. Pellentesque sociosqu congue taciti tincidunt commodo tempor dui.
+### What I have learned
 
-### What I learned
-
-Lorem ipsum odor amet, consectetuer adipiscing elit. Parturient purus donec dictumst vitae massa eget odio fusce. Pellentesque sociosqu congue taciti tincidunt commodo tempor dui.
+It was my first significant bug in a medium-sized project that I was still learning at the time. I got to apply my debugging skill to successfully narrow down the problem, find possible bottlenecks, and create solutions. Working extensively with charting libraries helped further my understanding to a point where I could build some of its features from scratch and integrated it with an existing project.

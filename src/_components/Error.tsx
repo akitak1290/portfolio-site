@@ -1,7 +1,7 @@
 import { useRouteError } from 'react-router-dom';
 import loadingGif from '../assets/loading.gif';
 
-function Error({status}: {status?: number}) {
+function Error({ status }: { status?: number }) {
     const error = useRouteError();
     console.log(error);
     return (

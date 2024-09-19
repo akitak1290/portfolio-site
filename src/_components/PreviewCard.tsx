@@ -27,4 +27,18 @@ function PreviewCard(prop: PropType) {
     );
 }
 
+export function PreviewCardPlaceholder() {
+
+    return (
+        <div className="preview-card-placeholder">
+            <div className="image-container-placeholder placeholder">
+                <img src="" alt="" />
+            </div>
+            <h3 className="preview-card-title-placeholder placeholder"></h3>
+            <p className="preview-card-desc-placeholder placeholder"></p>
+            <span className="preview-card-link-placeholder placeholder"></span>
+        </div>
+    );
+}
+
 export default PreviewCard;

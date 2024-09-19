@@ -1,26 +1,59 @@
-import GithubCard from "../_components/GithubCard";
+import GithubCard, { GithubCardPlaceholder } from "../_components/GithubCard";
+import useFetchGHRepos from "../_hooks/useFetchGHRepos";
 import { SectionPropType } from "./_utils";
-
 
 function Projects(prop: SectionPropType) {
     const { nodeRef } = prop;
+    const { data, loading, error } = useFetchGHRepos();
+
+    if (error) {
+        return (
+            <Layout nodeRef={nodeRef}>
+                <p>{error}</p>
+            </Layout>
+        );
+    }
+
+    if (loading) {
+        return (
+            <Layout nodeRef={nodeRef}>
+                {
+                    Array.from({ length: 3 }).map((_, index) => {
+                        return (
+                            <GithubCardPlaceholder key={index} />
+                        );
+                    })
+                }
+            </Layout>
+        );
+    }
 
     return (
-        <div className="projects section" id="projects" ref={nodeRef}>
-            <h1>Projects.</h1>
-            <p>Nec lobortis suspendisse magna convallis turpis metus natoque facilisi ornare. Sollicitudin conubia in scelerisque suspendisse congue ad platea torquent.</p>
-            <div className="projects-cards-container">
-                {[0, 1, 2, 3].map((_, index) => {
+        <Layout nodeRef={nodeRef}>
+            {
+                data?.slice(0, 6).map((repo, index) => {
                     return (
                         <GithubCard
                             key={index}
-                            repoName='lobortis suspendisse'
-                            repoDescription='Lorem ipsum odor amet, consectetuer adipiscing elit. Parturient purus donec dictumst vitae massa eget odio fusce. '
-                            languageType='Tempor'
-                            linkToRepo='http://localhost:5173/'
+                            repoName={repo.name}
+                            repoDescription={repo.description}
+                            languageType={repo.language}
+                            linkToRepo={repo.link}
                         />
                     );
-                })}
+                })
+            }
+        </Layout>
+    );
+}
+
+function Layout({ nodeRef, children }: { nodeRef?: React.MutableRefObject<null>, children: React.ReactNode }) {
+    return (
+        <div className="projects section" id="projects" ref={nodeRef}>
+            <h1>Projects.</h1>
+            <p>Here are some of the applications, small tools, and other stuff I have worked on, fetched directly from GitHub.</p>
+            <div className="projects-cards-container">
+                {children}
             </div>
         </div>
     );

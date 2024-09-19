@@ -1,14 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function NavBar() {
     const [isShowBurgerNavBar, setIsShowBurgerNavBar] = useState(false);
+    const [theme, setTheme] = useState<Theme>("light");
+
+    useEffect(() => {
+        function onLoad() {
+            const currentTheme = sessionStorage.getItem("theme") ?? "light";
+
+            document.documentElement.setAttribute("data-theme", currentTheme);
+            setTheme(currentTheme as Theme);
+        }
+
+        onLoad();
+    }, []);
 
     const toggleBurgerNavBar = () => {
         setIsShowBurgerNavBar(!isShowBurgerNavBar);
     }
-
-    const [theme, setTheme] = useState<Theme>("light");
 
     const toggleTheme = (event: React.ChangeEvent<HTMLInputElement>) => {
         const currentTheme = event.target.checked ? "light" : "dark";
@@ -16,6 +26,7 @@ function NavBar() {
         const nextTheme = currentTheme == "light" ? "dark" : "light";
         document.documentElement.setAttribute("data-theme", nextTheme);
 
+        sessionStorage.setItem("theme", nextTheme);
         setTheme(nextTheme);
     }
 
@@ -28,7 +39,7 @@ function NavBar() {
                 <ul><a href="/#projects">Projects</a></ul>
                 <ul><a href="/#blog">Blog</a></ul>
                 <ul><a href="/#contact">Contact</a></ul>
-                <ul><DarkModeSwitch theme={theme} toggleTheme={toggleTheme}/></ul>
+                <ul><DarkModeSwitch theme={theme} toggleTheme={toggleTheme} /></ul>
             </li>
             <button onClick={toggleBurgerNavBar} className="burger-menu">
                 <BurgerMenuIcon />
@@ -38,7 +49,7 @@ function NavBar() {
                 isOpen={isShowBurgerNavBar}
                 closeBurgerNavBar={() => toggleBurgerNavBar()}
                 theme={theme}
-                toggleTheme={toggleTheme}/>
+                toggleTheme={toggleTheme} />
         </div>
     )
 }
@@ -63,7 +74,7 @@ function BurgerNavBar(
                 <ul><a onClick={closeBurgerNavBar} href="/#projects">Projects</a></ul>
                 <ul><a onClick={closeBurgerNavBar} href="/#blog">Blog</a></ul>
                 <ul><a onClick={closeBurgerNavBar} href="/#contact">Contact</a></ul>
-                <ul><DarkModeSwitch theme={theme} toggleTheme={toggleTheme}/></ul>
+                <ul><DarkModeSwitch theme={theme} toggleTheme={toggleTheme} /></ul>
             </li>
         </div>
     );

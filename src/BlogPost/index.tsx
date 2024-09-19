@@ -1,9 +1,10 @@
-import useFetchBlogs from "../_hooks/useFetchBlogs";
-import Markdown from 'react-markdown';
 import { useParams, useNavigate } from "react-router-dom";
+import Markdown from 'react-markdown';
 
-import { type Element } from 'hast';
+import useFetchBlogs from "../_hooks/useFetchBlogs";
 import Error from "../_components/Error";
+import { type Element } from 'hast';
+import { useEffect } from "react";
 
 type SectionType = "experience" | "blog";
 
@@ -16,13 +17,18 @@ function BlogPost({ section }: { section: SectionType }) {
     } = useFetchBlogs(
         section == "blog" ? "mine" : "highlight",
         name?.replace(/(?<!-)-(?!-)/g, ' '));
+
     const navigate = useNavigate();
     if (name == undefined) navigate("/");
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     let blog = "";
     if (section == "experience" && data?.highlightBlogs) blog = data.highlightBlogs[0];
     if (section == "blog" && data?.myBlogs) blog = data.myBlogs[0];
-
+    
     return (
         <div className="blog-post">
             {error && <Error />}

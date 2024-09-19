@@ -15,15 +15,32 @@ function GithubCard(prop: PropType) {
             <div className="github-card">
                 <div className="github-card-title">
                     <BookIcon />
-                    <a href={linkToRepo} target="_blank"><p className="github-card-name">{truncateText(repoName, 20)}</p></a>
+                    <a href={linkToRepo} target="_blank"><p className="github-card-name">{truncateText(repoName, 25)}</p></a>
                     <p className="github-card-tag">Public</p>
                 </div>
-                <p>{truncateText(repoDescription, 120)}</p>
+                <div className="github-card-description">
+                    <p>{truncateText(repoDescription, 140)}</p>
+                </div>
                 <div className="github-card-details">
-                    <span></span>
+                    <span className={`github-card-language-${languageType.toLowerCase()}`}></span>
                     <p>{languageType}</p>
                 </div>
             </div>
+        </div>
+    );
+}
+
+export function GithubCardPlaceholder() {
+    return (
+        <div className="github-card-container-placeholder">
+            {
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                Array.from({ length: 3 }).map((_, index) => {
+                    return (
+                        <div className="placeholder" key={index}></div>
+                    );
+                })
+            }
         </div>
     );
 }

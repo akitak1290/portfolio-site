@@ -9,7 +9,7 @@ const useFetchBlogs = (type?: BlogType, name?: string) => {
     // need useState to trigger react's state change so
     // the return values are updated by react
     const [data, setData] = useState<BlogPostDataType>();
-    const [error, setError] = useState<string | undefined>(undefined);
+    const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
