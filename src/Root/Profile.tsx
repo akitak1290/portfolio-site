@@ -16,8 +16,9 @@ function Profile(prop: SectionPropType) {
                 <span className="resume"><DocumentIcon /><a href={Pdf} target="_blank">See my resume</a></span>
             </div>
             <div className="avatar">
-                <img src="/ava_bg.png" alt="" />
-                <img src="/ava.jpg" alt="" />
+                {/* https://github.com/facebook/react/issues/28948 wait for React 19 for a fix */}
+                <img src="/ava_bg.webp" alt="" />
+                <img src="/ava.webp" srcSet="ava_small.webp 300w" alt="avatar" />
             </div>
         </div>
     );

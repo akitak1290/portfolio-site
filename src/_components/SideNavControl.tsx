@@ -23,7 +23,8 @@ function SideNavControl({ isVisibleIndex }: { isVisibleIndex: number }) {
                         <li key={index}>
                             <div className={`side-nav-control-link ${calActiveLink == index ? "side-nav-control-link-active" : ""}`}
                                 onClick={() => setActiveLink(index)}>
-                                <a href={`/#${anchor}`}></a>
+                                <a href={`/#${anchor}`} aria-label={`Navigate to ${anchor} section`}></a>
+                                
                             </div>
                         </li>
                     );

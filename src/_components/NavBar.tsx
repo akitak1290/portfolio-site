@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useId } from "react";
 import { Link } from "react-router-dom";
 
 function NavBar() {
@@ -33,15 +33,15 @@ function NavBar() {
     return (
         <div className="nav-bar">
             <Link className="logo" to="/">Kien Ng.</Link>
-            <li className="nav-bar-sections">
-                <ul><a href="/#profile">Profile</a></ul>
-                <ul><a href="/#experience">Experience</a></ul>
-                <ul><a href="/#projects">Projects</a></ul>
-                <ul><a href="/#blog">Blog</a></ul>
-                <ul><a href="/#contact">Contact</a></ul>
-                <ul><DarkModeSwitch theme={theme} toggleTheme={toggleTheme} /></ul>
-            </li>
-            <button onClick={toggleBurgerNavBar} className="burger-menu">
+            <ul className="nav-bar-sections">
+                <li><a href="/#profile">Profile</a></li>
+                <li><a href="/#experience">Experience</a></li>
+                <li><a href="/#projects">Projects</a></li>
+                <li><a href="/#blog">Blog</a></li>
+                <li><a href="/#contact">Contact</a></li>
+                <li><DarkModeSwitch theme={theme} toggleTheme={toggleTheme} /></li>
+            </ul>
+            <button onClick={toggleBurgerNavBar} className="burger-menu" aria-label="burger-menu">
                 <BurgerMenuIcon />
             </button>
             {/* !Assume that toggleBurgerNavBar() here will always be called with isShowBurgerNavBar is true! */}
@@ -68,14 +68,14 @@ function BurgerNavBar(
     }) {
     return (
         <div className={`burger-nav-bar ${isOpen ? 'display-mobile' : 'hide-mobile'}`}>
-            <li className="burger-nav-bar-sections">
-                <ul><a onClick={closeBurgerNavBar} href="/#profile">Profile</a></ul>
-                <ul><a onClick={closeBurgerNavBar} href="/#experience">Experience</a></ul>
-                <ul><a onClick={closeBurgerNavBar} href="/#projects">Projects</a></ul>
-                <ul><a onClick={closeBurgerNavBar} href="/#blog">Blog</a></ul>
-                <ul><a onClick={closeBurgerNavBar} href="/#contact">Contact</a></ul>
-                <ul><DarkModeSwitch theme={theme} toggleTheme={toggleTheme} /></ul>
-            </li>
+            <ul className="burger-nav-bar-sections">
+                <li><a onClick={closeBurgerNavBar} href="/#profile">Profile</a></li>
+                <li><a onClick={closeBurgerNavBar} href="/#experience">Experience</a></li>
+                <li><a onClick={closeBurgerNavBar} href="/#projects">Projects</a></li>
+                <li><a onClick={closeBurgerNavBar} href="/#blog">Blog</a></li>
+                <li><a onClick={closeBurgerNavBar} href="/#contact">Contact</a></li>
+                <li><DarkModeSwitch theme={theme} toggleTheme={toggleTheme} /></li>
+            </ul>
         </div>
     );
 }
@@ -102,11 +102,12 @@ function DarkModeSwitch(
         theme: Theme,
         toggleTheme: (event: React.ChangeEvent<HTMLInputElement>) => void
     }) {
+    const id = useId();
 
     return (
         <div>
-            <label className="switch">
-                <input type="checkbox"
+            <label className="switch" htmlFor={id}>
+                <input type="checkbox" id={id}
                     onChange={toggleTheme} checked={theme == "dark"} />
                 <span className="slider"></span>
             </label>

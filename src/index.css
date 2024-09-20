@@ -3,6 +3,7 @@
 
     --background: white;
     --text-primary: #181A1B;
+    --link-primary: #535bf2; 
 
     --text-tn: 12px;
     --text-sm: 14px;
@@ -47,6 +48,7 @@ svg.only-stroke {
 [data-theme="dark"] {
     --background: #181A1B;
     --text-primary: white;
+    --link-primary: #B0B4FF;
 
     svg {
         fill: var(--text-primary);
@@ -77,12 +79,9 @@ body {
 
 a {
     text-decoration: inherit;
-    color: #2A7AE2;
+    color: var(--link-primary);
 }
 
-a:hover {
-    color: #535bf2;
-}
 
 ul,
 ol {
@@ -202,7 +201,7 @@ input[type="reset"] {
         flex-direction: column;
         justify-content: center;
 
-        >ul {
+        >li {
             font-size: var(--text-3lg);
             padding: 0;
             margin: 30px 0;
@@ -298,7 +297,7 @@ input[type="reset"] {
 
         .blog-post {
             >p:first-child {
-                color: #828282;
+                color: #585656;
                 margin-bottom: 5px;
             }
 

@@ -34,7 +34,6 @@ export function GithubCardPlaceholder() {
     return (
         <div className="github-card-container-placeholder">
             {
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 Array.from({ length: 3 }).map((_, index) => {
                     return (
                         <div className="placeholder" key={index}></div>
