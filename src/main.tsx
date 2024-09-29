@@ -10,11 +10,14 @@ import Footer from './_components/Footer.tsx';
 import Root from './Root/index.tsx';
 import Error from './_components/Error.tsx';
 
+import { Analytics } from "@vercel/analytics/react"
+
 const router = createBrowserRouter([
     {
         element:
             <>
                 <NavBar />
+                <Analytics />
                 <Outlet />
                 <Footer />
             </>,
