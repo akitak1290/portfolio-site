@@ -183,6 +183,7 @@ input[type="reset"] {
         right: 0;
         margin-right: 30px;
         position: fixed;
+        z-index: 999;
     }
 
     .burger-nav-bar {
@@ -192,6 +193,7 @@ input[type="reset"] {
         height: 100vh;
         left: 0;
         top: 0;
+        z-index: 998;
     }
 
     .burger-nav-bar-sections {
